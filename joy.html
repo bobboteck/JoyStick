@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Joy</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #joystick {
+        border: 1px solid #9C9898;
+      }
+    </style>
+	<script src="joy.min.js"></script>
+  </head>
+  <body>
+	<div id="joyDiv" style="width:170px;height:170px;margin-bottom:20px;"></div>
+	Posizione X:<input id="posizioneX" type="text" /></br>
+	Posizione Y:<input id="posizioneY" type="text" /></br>
+	Direzione:<input id="direzione" type="text" />
+    <script>
+// Create JoyStick object into the DIV 'joyDiv'
+var joy=new JoyStick('joyDiv');
+
+var inputPosX = document.getElementById("posizioneX");
+var inputPosY = document.getElementById("posizioneY");
+var direzione = document.getElementById("direzione");
+
+setInterval(function(){ inputPosX.value=joy.getPosX(); }, 50);
+setInterval(function(){ inputPosY.value=joy.getPosY(); }, 50);
+setInterval(function(){ direzione.value=joy.getDir(); }, 50);
+    </script>
+  </body>
+</html>
