@@ -1,8 +1,8 @@
 /*!
  * Name          : joy.js
- * Authors       : Roberto D'Amico (Bobboteck)
- * Last modified : 26.06.2015
- * Revision      : 1.0.0
+ * @author       : Roberto D'Amico (Bobboteck)
+ * Last modified : 03.07.2015
+ * Revision      : 1.0.1
  *
  * The MIT License (MIT)
  *
@@ -26,16 +26,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+ 
+/**
+ * @desc Principal object that draw a joystick, you only need to initialize the object and suggest the HTML container
+ * @param {String} container - HTML object that contains the Joystick
+ * @param {String} parameters [optional] - JSON String whit this parameters
+ * 		- title - The ID of canvas (Default value is 'joystick')
+ * 		- width - The width of canvas, if not specified is setted at width of container object
+ * 		- height - The height of canvas, if not specified is setted at height of container object
+ * 		- internalFillColor - 
+ * 		- internalLineWidth -
+ * 		- internalStrokeColor -
+ * 		- externalLineWidth -
+ * 		- externalStrokeColor - 
+ */
 var JoyStick = (function(container, parameters) {
 	parameters = parameters || {};
 	var title = (undefined === parameters.title ? 'joystick' : parameters.title),
 		width = (undefined === parameters.width ? 0 : parameters.width),
 		height = (undefined === parameters.height ? 0 : parameters.height),
-		internalFillStyle = (undefined === parameters.internalFillStyle ? '#003300' : parameters.internalFillStyle),
-		internalLineWidth = (undefined === parameters.internalLineWidth ? 5 : parameters.internalLineWidth),
-		internalStrokeStyle = (undefined === parameters.internalStrokeStyle ? '#003300' : parameters.internalStrokeStyle),
+		internalFillColor = (undefined === parameters.internalFillColor ? '#008000' : parameters.internalFillColor),
+		internalLineWidth = (undefined === parameters.internalLineWidth ? 2 : parameters.internalLineWidth),
+		internalStrokeColor = (undefined === parameters.internalStrokeColor ? '#003300' : parameters.internalStrokeColor),
 		externalLineWidth = (undefined === parameters.externalLineWidth ? 2 : parameters.externalLineWidth),
-		externalStrokeStyle = (undefined === parameters.externalStrokeStyle ? '#003300' : parameters.externalStrokeStyle);
+		externalStrokeColor = (undefined === parameters.externalStrokeColor ? '#008000' : parameters.externalStrokeColor);
 	
 	// Create Canvas element and add it in the Container object
 	var objContainer = document.getElementById(container);
@@ -50,7 +64,7 @@ var JoyStick = (function(container, parameters) {
 	
 	var pressed = 0; // Bool - 1=Yes - 0=No
 	var circumference = 2 * Math.PI;
-	var internalRadius = (canvas.width-((30*2)+10))/2; //50;
+	var internalRadius = (canvas.width-((50*2)+10))/2;
 	var externalRadius = internalRadius + 30;
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
@@ -58,15 +72,20 @@ var JoyStick = (function(container, parameters) {
 	var movedX=centerX;
 	var movedY=centerY;
 	
+	/**
+	 * @desc Draw the external circle used as reference position
+	 */
 	function drawExternal()
 	{
 		context.beginPath();
 		context.arc(centerX, centerY, externalRadius, 0, circumference, false);
 		context.lineWidth = externalLineWidth;
-		context.strokeStyle = externalStrokeStyle;
+		context.strokeStyle = externalStrokeColor;
 		context.stroke();
 	}
-
+	/**
+	 * @desc Draw the internal stick in the current position the user have moved it
+	 */
 	function drawInternal()
 	{
 		context.beginPath();
@@ -78,17 +97,19 @@ var JoyStick = (function(container, parameters) {
 		// create radial gradient
 		var grd = context.createRadialGradient(movedX, movedY, 10, movedX, movedY, 80);
 		// Light color
-		grd.addColorStop(0, internalFillStyle);
+		grd.addColorStop(0, internalFillColor);
 		// Dark color
-		grd.addColorStop(1, internalFillStyle);
+		grd.addColorStop(1, internalStrokeColor);
 		context.fillStyle = grd;
 		context.fill();
 		context.lineWidth = internalLineWidth;
-		context.strokeStyle = internalStrokeStyle;
+		context.strokeStyle = internalStrokeColor;
 		context.stroke();
 	}
 	
-	// Events for manage touch
+	/**
+	 * @desc Events for manage touch
+	 */
 	function onTouchStart(event) 
 	{
 		pressed=1;
@@ -123,7 +144,9 @@ var JoyStick = (function(container, parameters) {
 		drawInternal();
 		//canvas.unbind('touchmove');
 	}
-	// Events for manage mouse
+	/**
+	 * @desc Events for manage mouse
+	 */
 	function onMouseDown(event) 
 	{
 		pressed=1;
@@ -158,28 +181,30 @@ var JoyStick = (function(container, parameters) {
 		//canvas.unbind('mousemove');
 	}
 
-	//******* Public method *******
-	this.getWidth = function () 
+	/**
+	 * Public methods
+	 */
+	this.GetWidth = function () 
 	{
 		return canvas.width;
 	};
 	
-	this.getHeight = function () 
+	this.GetHeight = function () 
 	{
 		return canvas.height;
 	};
 	
-	this.getPosX = function ()
+	this.GetPosX = function ()
 	{
 		return movedX;
 	};
 
-	this.getPosY = function ()
+	this.GetPosY = function ()
 	{
 		return movedY;
 	};
 	
-	this.getDir = function()
+	this.GetDir = function()
 	{
 		var result = "";
 		var orizontal = movedX - centerX;
