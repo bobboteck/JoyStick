@@ -29,16 +29,17 @@
  
 /**
  * @desc Principal object that draw a joystick, you only need to initialize the object and suggest the HTML container
+ * @costructor
  * @param {String} container - HTML object that contains the Joystick
- * @param {String} parameters [optional] - JSON String whit this parameters
- * 		- title - The ID of canvas (Default value is 'joystick')
- * 		- width - The width of canvas, if not specified is setted at width of container object
- * 		- height - The height of canvas, if not specified is setted at height of container object
- * 		- internalFillColor - 
- * 		- internalLineWidth -
- * 		- internalStrokeColor -
- * 		- externalLineWidth -
- * 		- externalStrokeColor - 
+ * @param parameters (optional) - object with following keys:
+ *	* title (optional) - The ID of canvas (Default value is 'joystick')
+ * 	* width (optional) - The width of canvas, if not specified is setted at width of container object
+ * 	* height (optional) - The height of canvas, if not specified is setted at height of container object
+ * 	* internalFillColor (optional) - 
+ * 	* internalLineWidth (optional) -
+ * 	* internalStrokeColor (optional) -
+ * 	* externalLineWidth (optional) -
+ * 	* externalStrokeColor (optional) - 
  */
 var JoyStick = (function(container, parameters) {
 	parameters = parameters || {};
@@ -121,12 +122,12 @@ var JoyStick = (function(container, parameters) {
 		{
 			movedX=event.touches[0].pageX;
 			movedY=event.touches[0].pageY;
-			// Gestisce eventuali offset
+			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;
-			// Cancellare il canvas
+			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
-			// Disegna gli oggetti
+			// Redraw object
 			drawExternal();
 			drawInternal();
 		}
@@ -134,12 +135,12 @@ var JoyStick = (function(container, parameters) {
 	function onTouchEnd(event) 
 	{
 		pressed=0;
-		// Centra le variabili che indicano la posizione
+		// Reset position store variable
 		movedX=centerX;
 		movedY=centerY;
-		// Cancellare il canvas
+		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		// Ridisegna gli oggetti
+		// Redraw object
 		drawExternal();
 		drawInternal();
 		//canvas.unbind('touchmove');
@@ -157,12 +158,12 @@ var JoyStick = (function(container, parameters) {
 		{
 			movedX=event.pageX;
 			movedY=event.pageY;
-			// Gestisce eventuali offset
+			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;
-			// Cancellare il canvas
+			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
-			// Disegna gli oggetti
+			// Redraw object
 			drawExternal();
 			drawInternal();
 		}
@@ -170,35 +171,48 @@ var JoyStick = (function(container, parameters) {
 	function onMouseUp(event) 
 	{
 		pressed=0;
-		// Centra le variabili che indicano la posizione
+		// Reset position store variable
 		movedX=centerX;
 		movedY=centerY;
-		// Cancellare il canvas
+		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		// Ridisegna gli oggetti
+		// Redraw object
 		drawExternal();
 		drawInternal();
 		//canvas.unbind('mousemove');
 	}
 
-	/**
+	/******************************************************
 	 * Public methods
+	 *****************************************************/
+	/**
+	 * @desc The width of canvas
+	 * @return Number of pixel width 
 	 */
 	this.GetWidth = function () 
 	{
 		return canvas.width;
 	};
-	
+	/**
+	 * @desc The height of canvas
+	 * @return Number of pixel height
+	 */
 	this.GetHeight = function () 
 	{
 		return canvas.height;
 	};
-	
+	/**
+	 * @desc The X position of the cursor relative to the canvas that contains it and to its dimensions
+	 * @return Number that indicate relative position
+	 */
 	this.GetPosX = function ()
 	{
 		return movedX;
 	};
-
+	/**
+	 * @desc The Y position of the cursor relative to the canvas that contains it and to its dimensions
+	 * @return Number that indicate relative position
+	 */
 	this.GetPosY = function ()
 	{
 		return movedY;
