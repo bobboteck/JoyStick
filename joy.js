@@ -69,10 +69,32 @@ var JoyStick = (function(container, parameters) {
 	var externalRadius = internalRadius + 30;
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
-	// Used to save position of stick
+	// Used to save current position of stick
 	var movedX=centerX;
 	var movedY=centerY;
-	
+		
+	// Check if the device support the touch or not
+	var touchable = 'createTouch' in document;
+	if(touchable)
+	{
+		//alert("Yes you can Touch me!");
+		canvas.addEventListener( 'touchstart', onTouchStart, false );
+		canvas.addEventListener( 'touchmove', onTouchMove, false );
+		canvas.addEventListener( 'touchend', onTouchEnd, false );
+	}
+	else
+	{
+		//alert("Sorry you can only Click me!");
+		canvas.addEventListener('mousedown', onMouseDown, false);
+		canvas.addEventListener('mousemove', onMouseMove, false);
+		canvas.addEventListener('mouseup', onMouseUp, false);
+	}
+	// Draw the object
+	drawExternal();
+	drawInternal(centerX, centerY);
+	/******************************************************
+	 * Private methods
+	 *****************************************************/
 	/**
 	 * @desc Draw the external circle used as reference position
 	 */
@@ -181,7 +203,6 @@ var JoyStick = (function(container, parameters) {
 		drawInternal();
 		//canvas.unbind('mousemove');
 	}
-
 	/******************************************************
 	 * Public methods
 	 *****************************************************/
@@ -217,7 +238,20 @@ var JoyStick = (function(container, parameters) {
 	{
 		return movedY;
 	};
-	
+	/**
+	 * @desc 
+	 * @return
+	 */
+	this.GetX = function ()
+	{
+		//centerX
+		//movedX
+		return movedX - centerX;
+	};
+	/**
+	 * @desc Get the direction of the cursor as a string that indicates the cardinal points where this is oriented
+	 * @return String of cardinal point N, NE, E, SE, S, SW, W, NW and C when it is placed in the center
+	 */
 	this.GetDir = function()
 	{
 		var result = "";
@@ -262,24 +296,4 @@ var JoyStick = (function(container, parameters) {
 		
 		return result;
 	};
-	
-	// Check if the device support the touch or not
-	var touchable = 'createTouch' in document;
-	if(touchable)
-	{
-		//alert("Yes you can Touch me!");
-		canvas.addEventListener( 'touchstart', onTouchStart, false );
-		canvas.addEventListener( 'touchmove', onTouchMove, false );
-		canvas.addEventListener( 'touchend', onTouchEnd, false );
-	}
-	else
-	{
-		//alert("Sorry you can only Click me!");
-		canvas.addEventListener('mousedown', onMouseDown, false);
-		canvas.addEventListener('mousemove', onMouseMove, false);
-		canvas.addEventListener('mouseup', onMouseUp, false);
-	}
-	// Draw the object
-	drawExternal();
-	drawInternal(centerX, centerY);
 });

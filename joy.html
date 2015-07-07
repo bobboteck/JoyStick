@@ -17,7 +17,8 @@
 	<div id="joyDiv" style="width:200px;height:200px;margin-bottom:20px;"></div>
 	Posizione X:<input id="posizioneX" type="text" /></br>
 	Posizione Y:<input id="posizioneY" type="text" /></br>
-	Direzione:<input id="direzione" type="text" />
+	Direzione:<input id="direzione" type="text" /></br>
+  X :<input id="X" type="text" />
     <script>
 // Create JoyStick object into the DIV 'joyDiv'
 var joy = new JoyStick('joyDiv');
@@ -25,10 +26,12 @@ var joy = new JoyStick('joyDiv');
 var inputPosX = document.getElementById("posizioneX");
 var inputPosY = document.getElementById("posizioneY");
 var direzione = document.getElementById("direzione");
+var x = document.getElementById("X");
 
 setInterval(function(){ inputPosX.value=joy.GetPosX(); }, 50);
 setInterval(function(){ inputPosY.value=joy.GetPosY(); }, 50);
 setInterval(function(){ direzione.value=joy.GetDir(); }, 50);
+setInterval(function(){ x.value=joy.GetX(); }, 50);
     </script>
   </body>
 </html>
