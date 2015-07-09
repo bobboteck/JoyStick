@@ -244,8 +244,6 @@ var JoyStick = (function(container, parameters) {
 	 */
 	this.GetX = function ()
 	{
-		//centerX
-		//movedX
 		return movedX - centerX;
 	};
 	/**
