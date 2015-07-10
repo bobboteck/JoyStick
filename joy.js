@@ -2,7 +2,7 @@
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
  * Last modified : 03.07.2015
- * Revision      : 1.0.1
+ * Revision      : 1.1.0
  *
  * The MIT License (MIT)
  *
@@ -46,7 +46,7 @@ var JoyStick = (function(container, parameters) {
 	var title = (undefined === parameters.title ? 'joystick' : parameters.title),
 		width = (undefined === parameters.width ? 0 : parameters.width),
 		height = (undefined === parameters.height ? 0 : parameters.height),
-		internalFillColor = (undefined === parameters.internalFillColor ? '#008000' : parameters.internalFillColor),
+		internalFillColor = (undefined === parameters.internalFillColor ? '#00AA00' : parameters.internalFillColor),
 		internalLineWidth = (undefined === parameters.internalLineWidth ? 2 : parameters.internalLineWidth),
 		internalStrokeColor = (undefined === parameters.internalStrokeColor ? '#003300' : parameters.internalStrokeColor),
 		externalLineWidth = (undefined === parameters.externalLineWidth ? 2 : parameters.externalLineWidth),
@@ -66,9 +66,14 @@ var JoyStick = (function(container, parameters) {
 	var pressed = 0; // Bool - 1=Yes - 0=No
 	var circumference = 2 * Math.PI;
 	var internalRadius = (canvas.width-((50*2)+10))/2;
+	var maxMoveStick = internalRadius + 5;
 	var externalRadius = internalRadius + 30;
 	var centerX = canvas.width / 2;
 	var centerY = canvas.height / 2;
+	var directionHorizontalLimitPos = canvas.width / 10;
+	var directionHorizontalLimitNeg = directionHorizontalLimitPos * -1;
+	var directionVerticalLimitPos = canvas.height / 10;
+	var directionVerticalLimitNeg = directionVerticalLimitPos * -1;
 	// Used to save current position of stick
 	var movedX=centerX;
 	var movedY=centerY;
@@ -77,14 +82,12 @@ var JoyStick = (function(container, parameters) {
 	var touchable = 'createTouch' in document;
 	if(touchable)
 	{
-		//alert("Yes you can Touch me!");
-		canvas.addEventListener( 'touchstart', onTouchStart, false );
-		canvas.addEventListener( 'touchmove', onTouchMove, false );
-		canvas.addEventListener( 'touchend', onTouchEnd, false );
+		canvas.addEventListener('touchstart', onTouchStart, false);
+		canvas.addEventListener('touchmove', onTouchMove, false);
+		canvas.addEventListener('touchend', onTouchEnd, false);
 	}
 	else
 	{
-		//alert("Sorry you can only Click me!");
 		canvas.addEventListener('mousedown', onMouseDown, false);
 		canvas.addEventListener('mousemove', onMouseMove, false);
 		canvas.addEventListener('mouseup', onMouseUp, false);
@@ -112,13 +115,13 @@ var JoyStick = (function(container, parameters) {
 	function drawInternal()
 	{
 		context.beginPath();
-		if(movedX<internalRadius) movedX=internalRadius+5;
-		if((movedX+internalRadius)>canvas.width) movedX=canvas.width-(internalRadius+5);
-		if(movedY<internalRadius) movedY=internalRadius+5;
-		if((movedY+internalRadius)>canvas.height) movedY=canvas.height-(internalRadius+5);
+		if(movedX<internalRadius) movedX=maxMoveStick;
+		if((movedX+internalRadius)>canvas.width) movedX=canvas.width-(maxMoveStick);
+		if(movedY<internalRadius) movedY=maxMoveStick;
+		if((movedY+internalRadius)>canvas.height) movedY=canvas.height-(maxMoveStick);
 		context.arc(movedX, movedY, internalRadius, 0, circumference, false);
 		// create radial gradient
-		var grd = context.createRadialGradient(movedX, movedY, 10, movedX, movedY, 80);
+		var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
 		// Light color
 		grd.addColorStop(0, internalFillColor);
 		// Dark color
@@ -214,6 +217,7 @@ var JoyStick = (function(container, parameters) {
 	{
 		return canvas.width;
 	};
+	
 	/**
 	 * @desc The height of canvas
 	 * @return Number of pixel height
@@ -222,6 +226,7 @@ var JoyStick = (function(container, parameters) {
 	{
 		return canvas.height;
 	};
+	
 	/**
 	 * @desc The X position of the cursor relative to the canvas that contains it and to its dimensions
 	 * @return Number that indicate relative position
@@ -230,6 +235,7 @@ var JoyStick = (function(container, parameters) {
 	{
 		return movedX;
 	};
+	
 	/**
 	 * @desc The Y position of the cursor relative to the canvas that contains it and to its dimensions
 	 * @return Number that indicate relative position
@@ -238,14 +244,25 @@ var JoyStick = (function(container, parameters) {
 	{
 		return movedY;
 	};
+	
 	/**
-	 * @desc 
-	 * @return
+	 * @desc Normalizzed value of X move of stick
+	 * @return Integer from -100 to +100
 	 */
 	this.GetX = function ()
 	{
-		return movedX - centerX;
+		return (100*((movedX - centerX)/maxMoveStick)).toFixed();
 	};
+
+	/**
+	 * @desc Normalizzed value of Y move of stick
+	 * @return Integer from -100 to +100
+	 */
+	this.GetY = function ()
+	{
+		return ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+	};
+	
 	/**
 	 * @desc Get the direction of the cursor as a string that indicates the cardinal points where this is oriented
 	 * @return String of cardinal point N, NE, E, SE, S, SW, W, NW and C when it is placed in the center
@@ -256,20 +273,20 @@ var JoyStick = (function(container, parameters) {
 		var orizontal = movedX - centerX;
 		var vertical = movedY - centerY;
 		
-		if(vertical>=-14 && vertical<=14)
+		if(vertical>=directionVerticalLimitNeg && vertical<=directionVerticalLimitPos)
 		{
 			result = "C";
 		}
-		if(vertical<-15)
+		if(vertical<directionVerticalLimitNeg)
 		{
 			result = "N";
 		}
-		if(vertical>15)
+		if(vertical>directionVerticalLimitPos)
 		{
 			result = "S";
 		}
 		
-		if(orizontal<-15)
+		if(orizontal<directionHorizontalLimitNeg)
 		{
 			if(result=="C")
 			{ 
@@ -280,7 +297,7 @@ var JoyStick = (function(container, parameters) {
 				result += "W";
 			}
 		}
-		if(orizontal>15)
+		if(orizontal>directionHorizontalLimitPos)
 		{
 			if(result=="C")
 			{ 
