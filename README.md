@@ -50,18 +50,20 @@ You can see an example of result in this picture
 
 ![JoyStick in action!!!](http://bobboteck.github.io/joy/JoyStick.png "JoyStick in action!!!")
 
+But if you want see the JoyStick in action go to this [link](http://bobboteck.github.io/joy/joy.html).
+
 Advanced Options
 ----------------
 All configuration parameters are optional, must be passed in JSON format, then it is sufficient to indicate only the parameters whose volede give a different configuration from the value of Default.
 
-*	**title {String} (optional) - The ID of canvas (Default value is 'joystick')**
-* 	**width {Int} (optional) - The width of canvas, if not specified is setted at width of container object (Default value is the width of container object)**
-* 	**height {Int} (optional) - The height of canvas, if not specified is setted at height of container object (Default value is the height of container object)**
-* 	**internalFillColor {String} (optional) - Internal color of Stick (Default value is '#00AA00')**
-* 	**internalLineWidth {Int} (optional) - Border width of Stick (Default value is 2)**
-* 	**internalStrokeColor {String}(optional) - Border color of Stick (Default value is '#003300')**
-* 	**externalLineWidth {Int} (optional) - External reference circonference width (Default value is 2)**
-* 	**externalStrokeColor {String} (optional) - External reference circonference color (Default value is '#008000')**
+*	**title {String} (optional)** - The ID of canvas (Default value is 'joystick')
+* 	**width {Int} (optional)** - The width of canvas, if not specified is setted at width of container object (Default value is the width of container object)
+* 	**height {Int} (optional)** - The height of canvas, if not specified is setted at height of container object (Default value is the height of container object)
+* 	**internalFillColor {String} (optional)** - Internal color of Stick (Default value is '#00AA00')
+* 	**internalLineWidth {Int} (optional)** - Border width of Stick (Default value is 2)
+* 	**internalStrokeColor {String}(optional)** - Border color of Stick (Default value is '#003300')
+* 	**externalLineWidth {Int} (optional)** - External reference circonference width (Default value is 2)
+* 	**externalStrokeColor {String} (optional)** - External reference circonference color (Default value is '#008000')
 
 Tips & Tricks
 --------------
