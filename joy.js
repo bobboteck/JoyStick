@@ -1,7 +1,7 @@
 /*!
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 03.07.2015
+ * Last modified : 12.07.2015
  * Revision      : 1.1.0
  *
  * The MIT License (MIT)
