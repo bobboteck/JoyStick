@@ -1,6 +1,7 @@
 # JoyStick
 
 [![Join the chat at https://gitter.im/bobboteck/JoyStick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bobboteck/JoyStick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bobboteck/JoyStick&amp;utm_campaign=Badge_Grade)
 ===============================================================================================================================================================================================================================
 
 About
