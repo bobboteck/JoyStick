@@ -1,9 +1,13 @@
-/*!
+/*
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 12.07.2015
- * Revision      : 1.1.0
+ * Last modified : 12.11.2019
+ * Revision      : 1.1.1
  *
+ * Modification History:
+ * Date         Version     Modified By		Description
+ * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only at 0,0
+ * 
  * The MIT License (MIT)
  *
  * Copyright (c) 2015 Roberto D'Amico (Bobboteck)
@@ -140,13 +144,15 @@ var JoyStick = (function(container, parameters) {
 	{
 		pressed=1;
 	}
-	function onTouchMove(event) {
+	function onTouchMove(event)
+	{
 		// Prevent the browser from doing its default thing (scroll, zoom)
 		event.preventDefault();
 		if(pressed==1)
 		{
-			movedX=event.touches[0].pageX;
-			movedY=event.touches[0].pageY;
+			let rect = canvas.getBoundingClientRect();
+			movedX=event.touches[0].pageX - rect.left;
+			movedY=event.touches[0].pageY - rect.top;
 			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;
@@ -181,8 +187,9 @@ var JoyStick = (function(container, parameters) {
 	{
 		if(pressed==1)
 		{
-			movedX=event.pageX;
-			movedY=event.pageY;
+			let rect = canvas.getBoundingClientRect();
+			movedX=event.pageX - rect.left;
+			movedY=event.pageY - rect.top;
 			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;

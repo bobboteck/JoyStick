@@ -12,7 +12,7 @@ A simple JoyStick for web application that use HTML5, Canvas and JavaScript. JQu
 You can simply add a JoyStick in your HTML5 page, base configuration is ready for use it.
 Developed for Web Remote Control of Robot, the JoyStick can be used for all other scope.
 
-**Actual release version is 1.1.0**
+**Actual release version is 1.1.1**
 
 Using appropriate methods that the object provides, you can know the position of the Stick is located.
 The methods available are:
