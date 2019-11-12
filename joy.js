@@ -2,10 +2,11 @@
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
  * Last modified : 12.11.2019
- * Revision      : 1.1.1
+ * Revision      : 1.1.2
  *
  * Modification History:
  * Date         Version     Modified By		Description
+ * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
  * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only at 0,0
  * 
  * The MIT License (MIT)
@@ -83,8 +84,7 @@ var JoyStick = (function(container, parameters) {
 	var movedY=centerY;
 		
 	// Check if the device support the touch or not
-	var touchable = 'createTouch' in document;
-	if(touchable)
+	if("ontouchstart" in document.documentElement)
 	{
 		canvas.addEventListener('touchstart', onTouchStart, false);
 		canvas.addEventListener('touchmove', onTouchMove, false);
@@ -150,9 +150,8 @@ var JoyStick = (function(container, parameters) {
 		event.preventDefault();
 		if(pressed==1)
 		{
-			let rect = canvas.getBoundingClientRect();
-			movedX=event.touches[0].pageX - rect.left;
-			movedY=event.touches[0].pageY - rect.top;
+			movedX=event.touches[0].pageX;
+			movedY=event.touches[0].pageY;
 			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;
@@ -187,9 +186,8 @@ var JoyStick = (function(container, parameters) {
 	{
 		if(pressed==1)
 		{
-			let rect = canvas.getBoundingClientRect();
-			movedX=event.pageX - rect.left;
-			movedY=event.pageY - rect.top;
+			movedX=event.pageX;
+			movedY=event.pageY;
 			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;
