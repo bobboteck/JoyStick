@@ -306,7 +306,7 @@ var JoyStick = (function(container, parameters) {
 		{
 			if(result=="C")
 			{ 
-				result = "W";
+				result = "E";
 			}
 			else
 			{
