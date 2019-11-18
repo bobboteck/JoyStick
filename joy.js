@@ -1,11 +1,12 @@
 /*
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 12.11.2019
- * Revision      : 1.1.2
+ * Last modified : 18.11.2019
+ * Revision      : 1.1.3
  *
  * Modification History:
  * Date         Version     Modified By		Description
+ * 2019-11-18	1.1.3		Roberto D'Amico	Close #5 correct indication of East direction
  * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
  * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only at 0,0
  * 
