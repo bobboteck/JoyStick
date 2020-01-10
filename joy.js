@@ -1,11 +1,12 @@
 /*
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 18.11.2019
- * Revision      : 1.1.3
+ * Last modified : 07.01.2020
+ * Revision      : 1.1.4
  *
  * Modification History:
  * Date         Version     Modified By		Description
+ * 2020-01-07	1.1.4		Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of auto-return to 0 position
  * 2019-11-18	1.1.3		Roberto D'Amico	Close #5 correct indication of East direction
  * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
  * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only at 0,0
@@ -46,6 +47,7 @@
  * 	internalStrokeColor {String}(optional) - Border color of Stick (Default value is '#003300')
  * 	externalLineWidth {Int} (optional) - External reference circonference width (Default value is 2)
  * 	externalStrokeColor {String} (optional) - External reference circonference color (Default value is '#008000')
+ * 	autoReturnToCenter {Bool} (optional) - Sets the behavior of the stick, whether or not, it should return to zero position when released (Default value is True and return to zero)
  */
 var JoyStick = (function(container, parameters) {
 	parameters = parameters || {};
@@ -56,7 +58,8 @@ var JoyStick = (function(container, parameters) {
 		internalLineWidth = (undefined === parameters.internalLineWidth ? 2 : parameters.internalLineWidth),
 		internalStrokeColor = (undefined === parameters.internalStrokeColor ? '#003300' : parameters.internalStrokeColor),
 		externalLineWidth = (undefined === parameters.externalLineWidth ? 2 : parameters.externalLineWidth),
-		externalStrokeColor = (undefined === parameters.externalStrokeColor ? '#008000' : parameters.externalStrokeColor);
+		externalStrokeColor = (undefined === parameters.externalStrokeColor ? '#008000' : parameters.externalStrokeColor),
+		autoReturnToCenter = (undefined === parameters.autoReturnToCenter ? true : parameters.autoReturnToCenter);
 	
 	// Create Canvas element and add it in the Container object
 	var objContainer = document.getElementById(container);
@@ -166,9 +169,12 @@ var JoyStick = (function(container, parameters) {
 	function onTouchEnd(event) 
 	{
 		pressed=0;
-		// Reset position store variable
-		movedX=centerX;
-		movedY=centerY;
+		// If required reset position store variable
+		if(autoReturnToCenter)
+		{
+			movedX=centerX;
+			movedY=centerY;
+		}
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
@@ -202,9 +208,12 @@ var JoyStick = (function(container, parameters) {
 	function onMouseUp(event) 
 	{
 		pressed=0;
-		// Reset position store variable
-		movedX=centerX;
-		movedY=centerY;
+		// If required reset position store variable
+		if(autoReturnToCenter)
+		{
+			movedX=centerX;
+			movedY=centerY;
+		}
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
