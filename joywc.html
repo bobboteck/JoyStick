@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>JoyStick Web Component</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #joystick {
+        border: 1px solid #9C9898;
+      }
+    </style>
+	<script src="joywc.js"></script>
+  </head>
+  <body>
+    <wc-joystick style="width: 210px;height: 220px"></wc-joystick>
+
+Posizione X:<input id="posizioneX" type="text" /></br>
+Posizione Y:<input id="posizioneY" type="text" /></br>
+Direzione:<input id="direzione" type="text" /></br>
+X :<input id="X" type="text" /></br>
+Y :<input id="Y" type="text" />
+
+<wc-joystick style="width: 100px;height: 100px"></wc-joystick>
+
+    <script type="text/javascript">
+// Create JoyStick object into the DIV 'joyDiv'
+/*var joy = new JoyStick('joyDiv');
+
+var inputPosX = document.getElementById("posizioneX");
+var inputPosY = document.getElementById("posizioneY");
+var direzione = document.getElementById("direzione");
+var x = document.getElementById("X");
+var y = document.getElementById("Y");
+
+setInterval(function(){ inputPosX.value=joy.GetPosX(); }, 50);
+setInterval(function(){ inputPosY.value=joy.GetPosY(); }, 50);
+setInterval(function(){ direzione.value=joy.GetDir(); }, 50);
+setInterval(function(){ x.value=joy.GetX(); }, 50);
+setInterval(function(){ y.value=joy.GetY(); }, 50);*/
+    </script>
+  </body>
+</html>
