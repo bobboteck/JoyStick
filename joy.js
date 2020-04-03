@@ -6,6 +6,7 @@
  *
  * Modification History:
  * Date         Version     Modified By		Description
+ * 2020-04-xx   1.x.x       Roberto D'Amico Correct: - internalRadius when change the size of canvas, thanks to @vanslipon for the suggestion
  * 2020-01-07	1.1.4		Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of auto-return to 0 position
  * 2019-11-18	1.1.3		Roberto D'Amico	Close #5 correct indication of East direction
  * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
@@ -74,7 +75,7 @@ var JoyStick = (function(container, parameters) {
 	
 	var pressed = 0; // Bool - 1=Yes - 0=No
 	var circumference = 2 * Math.PI;
-	var internalRadius = (canvas.width-((50*2)+10))/2;
+    var internalRadius = (canvas.width-((canvas.width/2)+10))/2;
 	var maxMoveStick = internalRadius + 5;
 	var externalRadius = internalRadius + 30;
 	var centerX = canvas.width / 2;
