@@ -6,7 +6,8 @@
  *
  * Modification History:
  * Date         Version     Modified By		Description
- * 2020-04-03               Roberto D'Amico Correct: - internalRadius when change the size of canvas, thanks to @vanslipon for the suggestion
+ * 2020-04-20	1.1.5		Roberto D'Amico	Correct: Two sticks in a row, thanks to @liamw9534 for the suggestion
+ * 2020-04-03               Roberto D'Amico Correct: InternalRadius when change the size of canvas, thanks to @vanslipon for the suggestion
  * 2020-01-07	1.1.4		Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of auto-return to 0 position
  * 2019-11-18	1.1.3		Roberto D'Amico	Close #5 correct indication of East direction
  * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
@@ -14,7 +15,8 @@
  * 
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Roberto D'Amico (Bobboteck)
+ *  This file is part of the JoyStick Project (https://github.com/bobboteck/JoyStick).
+ *	Copyright (c) 2015 Roberto D'Amico (Bobboteck).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -153,10 +155,10 @@ var JoyStick = (function(container, parameters) {
 	{
 		// Prevent the browser from doing its default thing (scroll, zoom)
 		event.preventDefault();
-		if(pressed==1)
+		if(pressed==1 && event.targetTouches[0].target == canvas)
 		{
-			movedX=event.touches[0].pageX;
-			movedY=event.touches[0].pageY;
+			movedX=event.targetTouches[0].pageX;
+			movedY=event.targetTouches[0].pageY;
 			// Manage offset
 			movedX-=canvas.offsetLeft;
 			movedY-=canvas.offsetTop;

@@ -1,7 +1,6 @@
 # JoyStick
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&utm_medium=referral&utm_content=bobboteck/JoyStick&utm_campaign=badger)
-[![Join the chat at https://gitter.im/bobboteck/JoyStick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bobboteck/JoyStick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About
 
@@ -14,7 +13,7 @@ Developed for Web Remote Control of Robot, the JoyStick can be used for all othe
 
 > Note that code not use JQuery but only pure JavaScript.
 
-**Actual release version is 1.1.4**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
+**Actual release version is 1.1.5**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
 
 Using appropriate methods that the object provides, you can know the position of the Stick is located.
 The methods available are:
@@ -56,7 +55,7 @@ setInterval(function(){ x.value=joy.GetX(); }, 50);
 
 You can see an example of result in this picture
 
-![JoyStick in action!!!](http://bobboteck.github.io/joy/JoyStick.png "JoyStick in action!!!")
+![JoyStick in action!!!](https://repository-images.githubusercontent.com/38121741/2ca19400-80a4-11ea-9034-0dee3dbec67f "JoyStick in action!!!")
 
 But if you want see the JoyStick in action go to this [link](http://bobboteck.github.io/joy/joy.html).
 
