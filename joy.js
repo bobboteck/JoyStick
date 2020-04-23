@@ -68,8 +68,8 @@ var JoyStick = (function(container, parameters) {
 	var objContainer = document.getElementById(container);
 	var canvas = document.createElement('canvas');
 	canvas.id = title;
-	if(width == 0) width = objContainer.clientWidth;
-	if(height == 0) height = objContainer.clientHeight;
+	if(width === 0) width = objContainer.clientWidth;
+	if(height === 0) height = objContainer.clientHeight;
 	canvas.width = width;
 	canvas.height = height;
 	objContainer.appendChild(canvas);
@@ -105,7 +105,7 @@ var JoyStick = (function(container, parameters) {
 	}
 	// Draw the object
 	drawExternal();
-	drawInternal(centerX, centerY);
+	drawInternal();
 	/******************************************************
 	 * Private methods
 	 *****************************************************/
@@ -127,9 +127,9 @@ var JoyStick = (function(container, parameters) {
 	{
 		context.beginPath();
 		if(movedX<internalRadius) movedX=maxMoveStick;
-		if((movedX+internalRadius)>canvas.width) movedX=canvas.width-(maxMoveStick);
+		if((movedX+internalRadius) > canvas.width) movedX = canvas.width-(maxMoveStick);
 		if(movedY<internalRadius) movedY=maxMoveStick;
-		if((movedY+internalRadius)>canvas.height) movedY=canvas.height-(maxMoveStick);
+		if((movedY+internalRadius) > canvas.height) movedY = canvas.height-(maxMoveStick);
 		context.arc(movedX, movedY, internalRadius, 0, circumference, false);
 		// create radial gradient
 		var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
@@ -149,19 +149,19 @@ var JoyStick = (function(container, parameters) {
 	 */
 	function onTouchStart(event) 
 	{
-		pressed=1;
+		pressed = 1;
 	}
 	function onTouchMove(event)
 	{
 		// Prevent the browser from doing its default thing (scroll, zoom)
 		event.preventDefault();
-		if(pressed==1 && event.targetTouches[0].target == canvas)
+		if(pressed === 1 && event.targetTouches[0].target === canvas)
 		{
-			movedX=event.targetTouches[0].pageX;
-			movedY=event.targetTouches[0].pageY;
+			movedX = event.targetTouches[0].pageX;
+			movedY = event.targetTouches[0].pageY;
 			// Manage offset
-			movedX-=canvas.offsetLeft;
-			movedY-=canvas.offsetTop;
+			movedX -= canvas.offsetLeft;
+			movedY -= canvas.offsetTop;
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -171,12 +171,12 @@ var JoyStick = (function(container, parameters) {
 	} 
 	function onTouchEnd(event) 
 	{
-		pressed=0;
+		pressed = 0;
 		// If required reset position store variable
 		if(autoReturnToCenter)
 		{
-			movedX=centerX;
-			movedY=centerY;
+			movedX = centerX;
+			movedY = centerY;
 		}
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -190,17 +190,17 @@ var JoyStick = (function(container, parameters) {
 	 */
 	function onMouseDown(event) 
 	{
-		pressed=1;
+		pressed = 1;
 	}
 	function onMouseMove(event) 
 	{
-		if(pressed==1)
+		if(pressed === 1)
 		{
-			movedX=event.pageX;
-			movedY=event.pageY;
+			movedX = event.pageX;
+			movedY = event.pageY;
 			// Manage offset
-			movedX-=canvas.offsetLeft;
-			movedY-=canvas.offsetTop;
+			movedX -= canvas.offsetLeft;
+			movedY -= canvas.offsetTop;
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -210,12 +210,12 @@ var JoyStick = (function(container, parameters) {
 	}
 	function onMouseUp(event) 
 	{
-		pressed=0;
+		pressed = 0;
 		// If required reset position store variable
 		if(autoReturnToCenter)
 		{
-			movedX=centerX;
-			movedY=centerY;
+			movedX = centerX;
+			movedY = centerY;
 		}
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -291,22 +291,22 @@ var JoyStick = (function(container, parameters) {
 		var orizontal = movedX - centerX;
 		var vertical = movedY - centerY;
 		
-		if(vertical>=directionVerticalLimitNeg && vertical<=directionVerticalLimitPos)
+		if(vertical >= directionVerticalLimitNeg && vertical <= directionVerticalLimitPos)
 		{
 			result = "C";
 		}
-		if(vertical<directionVerticalLimitNeg)
+		if(vertical < directionVerticalLimitNeg)
 		{
 			result = "N";
 		}
-		if(vertical>directionVerticalLimitPos)
+		if(vertical > directionVerticalLimitPos)
 		{
 			result = "S";
 		}
 		
-		if(orizontal<directionHorizontalLimitNeg)
+		if(orizontal < directionHorizontalLimitNeg)
 		{
-			if(result=="C")
+			if(result === "C")
 			{ 
 				result = "W";
 			}
@@ -315,9 +315,9 @@ var JoyStick = (function(container, parameters) {
 				result += "W";
 			}
 		}
-		if(orizontal>directionHorizontalLimitPos)
+		if(orizontal > directionHorizontalLimitPos)
 		{
-			if(result=="C")
+			if(result === "C")
 			{ 
 				result = "E";
 			}

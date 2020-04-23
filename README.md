@@ -1,10 +1,11 @@
 # JoyStick
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&utm_medium=referral&utm_content=bobboteck/JoyStick&utm_campaign=badger)
+![VanillaJS](http://vanilla-js.com/assets/button.png "VanillaJS")
 
 ## About
 
-**Autor: [Roberto D'Amico](http://bobboteck.github.io)**
+**Author: [Roberto D'Amico](http://bobboteck.github.io)**
 
 A simple **JoyStick** for web application that use HTML5, Canvas and JavaScript.
 You can simply add a JoyStick in your HTML5 page, base configuration is ready for use it.
