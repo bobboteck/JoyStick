@@ -52,28 +52,29 @@
  * 	externalStrokeColor {String} (optional) - External reference circonference color (Default value is '#008000')
  * 	autoReturnToCenter {Bool} (optional) - Sets the behavior of the stick, whether or not, it should return to zero position when released (Default value is True and return to zero)
  */
-var JoyStick = (function(container, parameters) {
+var JoyStick = (function(container, parameters)
+{
 	parameters = parameters || {};
 	var title = (typeof parameters.title === "undefined" ? "joystick" : parameters.title),
 		width = (typeof parameters.width === "undefined" ? 0 : parameters.width),
 		height = (typeof parameters.height === "undefined" ? 0 : parameters.height),
-		internalFillColor = (parameters.internalFillColor === undefined ? "#00AA00" : parameters.internalFillColor),
-		internalLineWidth = (parameters.internalLineWidth === undefined ? 2 : parameters.internalLineWidth),
-		internalStrokeColor = (parameters.internalStrokeColor === undefined ? "#003300" : parameters.internalStrokeColor),
-		externalLineWidth = (parameters.externalLineWidth === undefined ? 2 : parameters.externalLineWidth),
-		externalStrokeColor = (parameters.externalStrokeColor ===  undefined ? "#008000" : parameters.externalStrokeColor),
-		autoReturnToCenter = (parameters.autoReturnToCenter === undefined ? true : parameters.autoReturnToCenter);
+		internalFillColor = (typeof parameters.internalFillColor === "undefined" ? "#00AA00" : parameters.internalFillColor),
+		internalLineWidth = (typeof parameters.internalLineWidth === "undefined" ? 2 : parameters.internalLineWidth),
+		internalStrokeColor = (typeof parameters.internalStrokeColor === "undefined" ? "#003300" : parameters.internalStrokeColor),
+		externalLineWidth = (typeof parameters.externalLineWidth === "undefined" ? 2 : parameters.externalLineWidth),
+		externalStrokeColor = (typeof parameters.externalStrokeColor ===  "undefined" ? "#008000" : parameters.externalStrokeColor),
+		autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined" ? true : parameters.autoReturnToCenter);
 	
 	// Create Canvas element and add it in the Container object
 	var objContainer = document.getElementById(container);
-	var canvas = document.createElement('canvas');
+	var canvas = document.createElement("canvas");
 	canvas.id = title;
-	if(width === 0) width = objContainer.clientWidth;
-	if(height === 0) height = objContainer.clientHeight;
+	if(width === 0) { width = objContainer.clientWidth; }
+	if(height === 0) { height = objContainer.clientHeight; }
 	canvas.width = width;
 	canvas.height = height;
 	objContainer.appendChild(canvas);
-	var context=canvas.getContext('2d');
+	var context=canvas.getContext("2d");
 	
 	var pressed = 0; // Bool - 1=Yes - 0=No
     var circumference = 2 * Math.PI;
@@ -93,15 +94,15 @@ var JoyStick = (function(container, parameters) {
 	// Check if the device support the touch or not
 	if("ontouchstart" in document.documentElement)
 	{
-		canvas.addEventListener('touchstart', onTouchStart, false);
-		canvas.addEventListener('touchmove', onTouchMove, false);
-		canvas.addEventListener('touchend', onTouchEnd, false);
+		canvas.addEventListener("touchstart", onTouchStart, false);
+		canvas.addEventListener("touchmove", onTouchMove, false);
+		canvas.addEventListener("touchend", onTouchEnd, false);
 	}
 	else
 	{
-		canvas.addEventListener('mousedown', onMouseDown, false);
-		canvas.addEventListener('mousemove', onMouseMove, false);
-		canvas.addEventListener('mouseup', onMouseUp, false);
+		canvas.addEventListener("mousedown", onMouseDown, false);
+		canvas.addEventListener("mousemove", onMouseMove, false);
+		canvas.addEventListener("mouseup", onMouseUp, false);
 	}
 	// Draw the object
 	drawExternal();
@@ -126,10 +127,10 @@ var JoyStick = (function(container, parameters) {
 	function drawInternal()
 	{
 		context.beginPath();
-		if(movedX<internalRadius) movedX=maxMoveStick;
-		if((movedX+internalRadius) > canvas.width) movedX = canvas.width-(maxMoveStick);
-		if(movedY<internalRadius) movedY=maxMoveStick;
-		if((movedY+internalRadius) > canvas.height) movedY = canvas.height-(maxMoveStick);
+		if(movedX<internalRadius) { movedX=maxMoveStick; }
+		if((movedX+internalRadius) > canvas.width) { movedX = canvas.width-(maxMoveStick); }
+		if(movedY<internalRadius) { movedY=maxMoveStick; }
+		if((movedY+internalRadius) > canvas.height) { movedY = canvas.height-(maxMoveStick); }
 		context.arc(movedX, movedY, internalRadius, 0, circumference, false);
 		// create radial gradient
 		var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
