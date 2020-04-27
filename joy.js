@@ -54,9 +54,9 @@
  */
 var JoyStick = (function(container, parameters) {
 	parameters = parameters || {};
-	var title = (parameters.title === undefined ? "joystick" : parameters.title),
-		width = (parameters.width === undefined ? 0 : parameters.width),
-		height = (parameters.height === undefined ? 0 : parameters.height),
+	var title = (typeof parameters.title === "undefined" ? "joystick" : parameters.title),
+		width = (typeof parameters.width === "undefined" ? 0 : parameters.width),
+		height = (typeof parameters.height === "undefined" ? 0 : parameters.height),
 		internalFillColor = (parameters.internalFillColor === undefined ? "#00AA00" : parameters.internalFillColor),
 		internalLineWidth = (parameters.internalLineWidth === undefined ? 2 : parameters.internalLineWidth),
 		internalStrokeColor = (parameters.internalStrokeColor === undefined ? "#003300" : parameters.internalStrokeColor),
