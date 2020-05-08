@@ -1,7 +1,7 @@
 # JoyStick
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&utm_medium=referral&utm_content=bobboteck/JoyStick&utm_campaign=badger)
-![VanillaJS](http://vanilla-js.com/assets/button.png "VanillaJS")
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&utm_medium=referral&utm_content=bobboteck/JoyStick&utm_campaign=badger) ![VanillaJS](https://img.shields.io/badge/Vanilla-JS-yellow "VanillaJS") ![GitHub release (latest by date)](https://img.shields.io/github/v/release/bobboteck/joystick) ![GitHub file size in bytes](https://img.shields.io/github/size/bobboteck/joystick/joy.min.js)
+[![GitHub stars](https://img.shields.io/github/stars/bobboteck/JoyStick)](https://github.com/bobboteck/JoyStick/stargazers) [![GitHub forks](https://img.shields.io/github/forks/bobboteck/JoyStick)](https://github.com/bobboteck/JoyStick/network) ![GitHub All Releases](https://img.shields.io/github/downloads/bobboteck/joystick/total)
 
 ## About
 
