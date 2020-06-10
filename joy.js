@@ -1,8 +1,8 @@
 /*
  * Name          : joy.js
  * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 07.01.2020
- * Revision      : 1.1.4
+ * Last modified : 09.06.2020
+ * Revision      : 1.1.6
  *
  * Modification History:
  * Date         Version     Modified By		Description
