@@ -76,6 +76,16 @@ body
 		<script src="joy.js"></script>
 	</head>
 	<body>
+		<!-- Example of FIXED or ABSOLUTE position -->
+		<div id="joy3Div" style="width:200px;height:200px;margin:50px;position:fixed;bottom:30px;left:500px;"></div>
+		<div style="position:fixed;bottom:125px;left:750px;">
+			Posizione X:<input id="joy3PosizioneX" type="text" /><br />
+			Posizione Y:<input id="joy3PosizioneY" type="text" /><br />
+			Direzione:<input id="joy3Direzione" type="text" /><br />
+			X :<input id="joy3X" type="text" /></br>
+			Y :<input id="joy3Y" type="text" />
+		</div>
+		<!-- Example of two JoyStick integrated in the page structure -->
 		<div class="row">
 			<div class="columnLateral">
 				<div id="joy1Div" style="width:200px;height:200px;margin:50px"></div>
@@ -134,6 +144,21 @@ setInterval(function(){ joy2InputPosY.value=Joy2.GetPosY(); }, 50);
 setInterval(function(){ joy2Direzione.value=Joy2.GetDir(); }, 50);
 setInterval(function(){ joy2X.value=Joy2.GetX(); }, 50);
 setInterval(function(){ joy2Y.value=Joy2.GetY(); }, 50);
+
+var joy3Param = { "title": "joystick3" };
+var Joy3 = new JoyStick('joy3Div', joy3Param);
+
+var joy3IinputPosX = document.getElementById("joy3PosizioneX");
+var joy3InputPosY = document.getElementById("joy3PosizioneY");
+var joy3Direzione = document.getElementById("joy3Direzione");
+var joy3X = document.getElementById("joy3X");
+var joy3Y = document.getElementById("joy3Y");
+
+setInterval(function(){ joy3IinputPosX.value=Joy3.GetPosX(); }, 50);
+setInterval(function(){ joy3InputPosY.value=Joy3.GetPosY(); }, 50);
+setInterval(function(){ joy3Direzione.value=Joy3.GetDir(); }, 50);
+setInterval(function(){ joy3X.value=Joy3.GetX(); }, 50);
+setInterval(function(){ joy3Y.value=Joy3.GetY(); }, 50);
 		</script>
 	</body>
 </html>

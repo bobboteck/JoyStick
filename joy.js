@@ -6,6 +6,7 @@
  *
  * Modification History:
  * Date         Version     Modified By		Description
+ * 2020-06-09	1.1.6		Roberto D'Amico	Fixed Issue #10 and #11
  * 2020-04-20	1.1.5		Roberto D'Amico	Correct: Two sticks in a row, thanks to @liamw9534 for the suggestion
  * 2020-04-03               Roberto D'Amico Correct: InternalRadius when change the size of canvas, thanks to @vanslipon for the suggestion
  * 2020-01-07	1.1.4		Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of auto-return to 0 position
@@ -107,9 +108,11 @@ var JoyStick = (function(container, parameters)
 	// Draw the object
 	drawExternal();
 	drawInternal();
+
 	/******************************************************
 	 * Private methods
 	 *****************************************************/
+
 	/**
 	 * @desc Draw the external circle used as reference position
 	 */
@@ -121,6 +124,7 @@ var JoyStick = (function(container, parameters)
 		context.strokeStyle = externalStrokeColor;
 		context.stroke();
 	}
+
 	/**
 	 * @desc Draw the internal stick in the current position the user have moved it
 	 */
@@ -152,6 +156,7 @@ var JoyStick = (function(container, parameters)
 	{
 		pressed = 1;
 	}
+
 	function onTouchMove(event)
 	{
 		// Prevent the browser from doing its default thing (scroll, zoom)
@@ -161,8 +166,16 @@ var JoyStick = (function(container, parameters)
 			movedX = event.targetTouches[0].pageX;
 			movedY = event.targetTouches[0].pageY;
 			// Manage offset
-			movedX -= canvas.offsetLeft;
-			movedY -= canvas.offsetTop;
+			if(canvas.offsetParent.tagName.toUpperCase() === "BODY")
+			{
+				movedX -= canvas.offsetLeft;
+				movedY -= canvas.offsetTop;
+			}
+			else
+			{
+				movedX -= canvas.offsetParent.offsetLeft;
+				movedY -= canvas.offsetParent.offsetTop;
+			}
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -170,6 +183,7 @@ var JoyStick = (function(container, parameters)
 			drawInternal();
 		}
 	} 
+
 	function onTouchEnd(event) 
 	{
 		pressed = 0;
@@ -186,6 +200,7 @@ var JoyStick = (function(container, parameters)
 		drawInternal();
 		//canvas.unbind('touchmove');
 	}
+
 	/**
 	 * @desc Events for manage mouse
 	 */
@@ -193,6 +208,7 @@ var JoyStick = (function(container, parameters)
 	{
 		pressed = 1;
 	}
+
 	function onMouseMove(event) 
 	{
 		if(pressed === 1)
@@ -200,8 +216,16 @@ var JoyStick = (function(container, parameters)
 			movedX = event.pageX;
 			movedY = event.pageY;
 			// Manage offset
-			movedX -= canvas.offsetLeft;
-			movedY -= canvas.offsetTop;
+			if(canvas.offsetParent.tagName.toUpperCase() === "BODY")
+			{
+				movedX -= canvas.offsetLeft;
+				movedY -= canvas.offsetTop;
+			}
+			else
+			{
+				movedX -= canvas.offsetParent.offsetLeft;
+				movedY -= canvas.offsetParent.offsetTop;
+			}
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -209,6 +233,7 @@ var JoyStick = (function(container, parameters)
 			drawInternal();
 		}
 	}
+
 	function onMouseUp(event) 
 	{
 		pressed = 0;
@@ -225,9 +250,11 @@ var JoyStick = (function(container, parameters)
 		drawInternal();
 		//canvas.unbind('mousemove');
 	}
+
 	/******************************************************
 	 * Public methods
 	 *****************************************************/
+	
 	/**
 	 * @desc The width of canvas
 	 * @return Number of pixel width 

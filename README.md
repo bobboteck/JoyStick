@@ -12,9 +12,9 @@ You can simply add a JoyStick in your HTML5 page, base configuration is ready fo
 The joystick can be used either on touch devices, or on devices that use mouse, touchpads or similar pointing systems.
 Developed for Web Remote Control of Robot, the JoyStick can be used for all other scope.
 
-> Note that code not use JQuery but only pure JavaScript.
+> Note that code not use JQuery but only pure Vanilla JavaScript.
 
-**Actual release version is 1.1.5**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
+**Actual release version is 1.1.6**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
 
 Using appropriate methods that the object provides, you can know the position of the Stick is located.
 The methods available are:
@@ -62,7 +62,7 @@ But if you want see the JoyStick in action go to this [link](http://bobboteck.gi
 
 ## Advanced Options
 
-All configuration parameters are optional, must be passed in JSON format, then it is sufficient to indicate only the parameters whose volede give a different configuration from the value of Default.
+All configuration parameters are optional, must be passed in JSON format, therefore it is sufficient to indicate only the parameters for which you want to provide a configuration other than the Default value.
 
 * **title {String} (optional)** - The ID of canvas (Default value is 'joystick')
 * **width {Int} (optional)** - The width of canvas, if not specified is setted at width of container object (Default value is the width of container object)
@@ -86,7 +86,7 @@ The ***title*** parameter, that have as default value 'joystick', is used to set
 
 ## Share your experience
 
-If you have integrated **JoyStick** into your project, and you want to share your user experience, I will be happy to create a "Use cases" page to put in the project Wiki.
+If you have integrated **JoyStick** into your project, and you want to share your user experience, I will be happy to add it on a **[Use cases](https://github.com/bobboteck/JoyStick/wiki/UseCases)** Wiki page of this project.
 If you want, send me an email with some information about the project.
 
 ## Contribute
