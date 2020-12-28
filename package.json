@@ -1,0 +1,25 @@
+{
+  "name": "html5-joystick",
+  "version": "1.1.6",
+  "description": "A simple JoyStick that use HTML5 Canvas and Vanilla JavaScript, for touch and mouse interfaces",
+  "main": "joy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobboteck/JoyStick.git"
+  },
+  "keywords": [
+    "joystick",
+    "vanilla",
+    "touchscreen",
+    "html5"
+  ],
+  "author": "Roberto D'Amico (@bobboteck)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bobboteck/JoyStick/issues"
+  },
+  "homepage": "https://github.com/bobboteck/JoyStick#readme"
+}
