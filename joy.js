@@ -177,7 +177,7 @@ var JoyStick = (function(container, parameters, callback)
 				movedX -= canvas.offsetParent.offsetLeft;
 				movedY -= canvas.offsetParent.offsetTop;
 			}
-            callback(GetX(), GetY());
+            callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -195,7 +195,7 @@ var JoyStick = (function(container, parameters, callback)
 			movedX = centerX;
 			movedY = centerY;
 		}
-        callback(GetX(), GetY());
+        callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
@@ -218,7 +218,7 @@ var JoyStick = (function(container, parameters, callback)
 		{
 			movedX = event.pageX;
 			movedY = event.pageY;
-            callback(GetX(), GetY());
+            callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 			// Manage offset
 			if(canvas.offsetParent.tagName.toUpperCase() === "BODY")
 			{
@@ -247,7 +247,7 @@ var JoyStick = (function(container, parameters, callback)
 			movedX = centerX;
 			movedY = centerY;
 		}
-        callback(GetX(), GetY());
+        callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
