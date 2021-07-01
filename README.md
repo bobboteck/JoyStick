@@ -48,8 +48,6 @@ var joy = new JoyStick('joyDiv');
 </script>
 ```
 
-Now you can call one of method, explained before, that return status of Stick, for example in the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file every 50 millisecond was called the method **GetX()** and showed the value in a textbox:
-
 Along with the parameter options specified below in Advanced Options, a callback function can be passed when creating the JoyStick object. This callback function will be called whenever the Joystick is moved. The parameters x (with the value of `joy.GetX()`) and y (with the value of `joy.GetY()`) will be passed to the function.
 
 ```javascript
