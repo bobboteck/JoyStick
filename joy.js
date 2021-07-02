@@ -53,9 +53,10 @@
  * 	externalStrokeColor {String} (optional) - External reference circonference color (Default value is '#008000')
  * 	autoReturnToCenter {Bool} (optional) - Sets the behavior of the stick, whether or not, it should return to zero position when released (Default value is True and return to zero)
  */
-var JoyStick = (function(container, parameters)
+var JoyStick = (function(container, parameters, callback)
 {
 	parameters = parameters || {};
+    callback = callback || function (x, y) {}
 	var title = (typeof parameters.title === "undefined" ? "joystick" : parameters.title),
 		width = (typeof parameters.width === "undefined" ? 0 : parameters.width),
 		height = (typeof parameters.height === "undefined" ? 0 : parameters.height),
@@ -176,6 +177,7 @@ var JoyStick = (function(container, parameters)
 				movedX -= canvas.offsetParent.offsetLeft;
 				movedY -= canvas.offsetParent.offsetTop;
 			}
+            callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -193,6 +195,7 @@ var JoyStick = (function(container, parameters)
 			movedX = centerX;
 			movedY = centerY;
 		}
+        callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
@@ -215,6 +218,7 @@ var JoyStick = (function(container, parameters)
 		{
 			movedX = event.pageX;
 			movedY = event.pageY;
+            callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 			// Manage offset
 			if(canvas.offsetParent.tagName.toUpperCase() === "BODY")
 			{
@@ -243,6 +247,7 @@ var JoyStick = (function(container, parameters)
 			movedX = centerX;
 			movedY = centerY;
 		}
+        callback((100*((movedX - centerX)/maxMoveStick)).toFixed(), (100*((movedY - centerY)/maxMoveStick)).toFixed());
 		// Delete canvas
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Redraw object
