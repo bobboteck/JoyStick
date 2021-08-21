@@ -64,7 +64,8 @@ var JoyStick = (function(container, parameters)
 		internalStrokeColor = (typeof parameters.internalStrokeColor === "undefined" ? "#003300" : parameters.internalStrokeColor),
 		externalLineWidth = (typeof parameters.externalLineWidth === "undefined" ? 2 : parameters.externalLineWidth),
 		externalStrokeColor = (typeof parameters.externalStrokeColor ===  "undefined" ? "#008000" : parameters.externalStrokeColor),
-		autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined" ? true : parameters.autoReturnToCenter);
+		autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined" ? true : parameters.autoReturnToCenter),
+		axis = (typeof parameters.axis === "undefined" ? false : parameters.axis);
 	
 	// Create Canvas element and add it in the Container object
 	var objContainer = document.getElementById(container);
@@ -176,6 +177,11 @@ var JoyStick = (function(container, parameters)
 				movedX -= canvas.offsetParent.offsetLeft;
 				movedY -= canvas.offsetParent.offsetTop;
 			}
+			if(axis)
+				if(axis === 'y')
+					movedX = centerX;
+				else if(axis === 'x')
+					movedY = centerY;
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
@@ -226,6 +232,11 @@ var JoyStick = (function(container, parameters)
 				movedX -= canvas.offsetParent.offsetLeft;
 				movedY -= canvas.offsetParent.offsetTop;
 			}
+			if(axis)
+				if(axis === 'y')
+					movedX = centerX;
+				else if(axis === 'x')
+					movedY = centerY;
 			// Delete canvas
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			// Redraw object
