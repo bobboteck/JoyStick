@@ -25,7 +25,7 @@ The methods available are:
 
 ## How to use it
 
-You can simply look the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file for un example of use the library.
+You can simply look the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file for an example of use the library.
 
 First add the JS library in your page, follow the example code to use, if necessary you need to change te path of joy.js file.
 
