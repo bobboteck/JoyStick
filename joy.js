@@ -68,6 +68,7 @@ var JoyStick = (function(container, parameters)
 	
 	// Create Canvas element and add it in the Container object
 	var objContainer = document.getElementById(container);
+	objContainer.style.touchAction = "none"; // fixing Unable to preventDefault inside passive event listener due to target being treated as passive in Chrome
 	var canvas = document.createElement("canvas");
 	canvas.id = title;
 	if(width === 0) { width = objContainer.clientWidth; }
@@ -160,7 +161,7 @@ var JoyStick = (function(container, parameters)
 	function onTouchMove(event)
 	{
 		// Prevent the browser from doing its default thing (scroll, zoom)
-		event.preventDefault();
+		//event.preventDefault(); causes Unable to preventDefault inside passive event listener due to target being treated as passive on Chrome 
 		if(pressed === 1 && event.targetTouches[0].target === canvas)
 		{
 			movedX = event.targetTouches[0].pageX;
