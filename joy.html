@@ -131,11 +131,11 @@ setInterval(function(){ joy1Y.value=Joy1.GetY(); }, 50);
 */
 // Create JoyStick object into the DIV 'joy1Div'
 var Joy1 = new JoyStick('joy1Div', {}, function(stickData) {
-    //joy1IinputPosX.value = Joy1.GetPosX();
-    //joy1InputPosY.value = Joy1.GetPosY();
-    //joy1Direzione.value = Joy1.GetDir();
-    joy1X.value = stickData.PosX;
-    joy1Y.value = stickData.PosY;
+    joy1IinputPosX.value = stickData.xPosition;
+    joy1InputPosY.value = stickData.yPosition;
+    joy1Direzione.value = stickData.cardinalDirection;
+    joy1X.value = stickData.x;
+    joy1Y.value = stickData.y;
 });
 
 // Create JoyStick object into the DIV 'joy2Div'

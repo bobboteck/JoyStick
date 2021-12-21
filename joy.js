@@ -6,13 +6,20 @@
  *
  * Modification History:
  * Date         Version     Modified By     Description
+ * 2021-12-21   2.0.0       Roberto D'Amico New version of the project that integrates the callback functions, while 
+ *                                          maintaining compatibility with previous versions. Fixed Issue #27 too, 
+ *                                          thanks to @artisticfox8 for the suggestion.
  * 2020-06-09   1.1.6       Roberto D'Amico Fixed Issue #10 and #11
  * 2020-04-20   1.1.5       Roberto D'Amico Correct: Two sticks in a row, thanks to @liamw9534 for the suggestion
- * 2020-04-03               Roberto D'Amico Correct: InternalRadius when change the size of canvas, thanks to @vanslipon for the suggestion
- * 2020-01-07   1.1.4       Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of auto-return to 0 position
+ * 2020-04-03               Roberto D'Amico Correct: InternalRadius when change the size of canvas, thanks to 
+ *                                          @vanslipon for the suggestion
+ * 2020-01-07   1.1.4       Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of 
+ *                                          auto-return to 0 position
  * 2019-11-18   1.1.3       Roberto D'Amico Close #5 correct indication of East direction
- * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch devices
- * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only at 0,0
+ * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch 
+ *                                          devices
+ * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only 
+ *                                          at 0,0
  * 
  * The MIT License (MIT)
  *
@@ -40,8 +47,11 @@
 
 let StickStatus =
 {
-    PosX: 0,
-    PosY: 0
+    xPosition: 0,
+    yPosition: 0,
+    x: 0,
+    y: 0,
+    cardinalDirection: "C"
 };
 
 /**
@@ -58,6 +68,7 @@ let StickStatus =
  *  externalLineWidth {Int} (optional) - External reference circonference width (Default value is 2)
  *  externalStrokeColor {String} (optional) - External reference circonference color (Default value is '#008000')
  *  autoReturnToCenter {Bool} (optional) - Sets the behavior of the stick, whether or not, it should return to zero position when released (Default value is True and return to zero)
+ * @param callback {StickStatus} - 
  */
 var JoyStick = (function(container, parameters, callback)
 {
@@ -76,6 +87,10 @@ var JoyStick = (function(container, parameters, callback)
 
     // Create Canvas element and add it in the Container object
     var objContainer = document.getElementById(container);
+    
+    // Fixing Unable to preventDefault inside passive event listener due to target being treated as passive in Chrome [Thanks to https://github.com/artisticfox8 for this suggestion]
+    objContainer.style.touchAction = "none";
+
     var canvas = document.createElement("canvas");
     canvas.id = title;
     if(width === 0) { width = objContainer.clientWidth; }
@@ -167,8 +182,6 @@ var JoyStick = (function(container, parameters, callback)
 
     function onTouchMove(event)
     {
-        // Prevent the browser from doing its default thing (scroll, zoom)
-        event.preventDefault();
         if(pressed === 1 && event.targetTouches[0].target === canvas)
         {
             movedX = event.targetTouches[0].pageX;
@@ -189,6 +202,14 @@ var JoyStick = (function(container, parameters, callback)
             // Redraw object
             drawExternal();
             drawInternal();
+
+            // Set attribute of callback
+            StickStatus.xPosition = movedX;
+            StickStatus.yPosition = movedY;
+            StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+            StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+            StickStatus.cardinalDirection = getCardinalDirection();
+            callback(StickStatus);
         }
     } 
 
@@ -206,7 +227,14 @@ var JoyStick = (function(container, parameters, callback)
         // Redraw object
         drawExternal();
         drawInternal();
-        //canvas.unbind('touchmove');
+
+        // Set attribute of callback
+        StickStatus.xPosition = movedX;
+        StickStatus.yPosition = movedY;
+        StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+        StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+        StickStatus.cardinalDirection = getCardinalDirection();
+        callback(StickStatus);
     }
 
     /**
@@ -241,8 +269,12 @@ var JoyStick = (function(container, parameters, callback)
             drawExternal();
             drawInternal();
 
-            StickStatus.PosX = movedX;
-            StickStatus.PosY = movedY;
+            // Set attribute of callback
+            StickStatus.xPosition = movedX;
+            StickStatus.yPosition = movedY;
+            StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+            StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+            StickStatus.cardinalDirection = getCardinalDirection();
             callback(StickStatus);
         }
     }
@@ -261,7 +293,59 @@ var JoyStick = (function(container, parameters, callback)
         // Redraw object
         drawExternal();
         drawInternal();
-        //canvas.unbind('mousemove');
+
+        // Set attribute of callback
+        StickStatus.xPosition = movedX;
+        StickStatus.yPosition = movedY;
+        StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+        StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+        StickStatus.cardinalDirection = getCardinalDirection();
+        callback(StickStatus);
+    }
+
+    function getCardinalDirection()
+    {
+        let result = "";
+        let orizontal = movedX - centerX;
+        let vertical = movedY - centerY;
+        
+        if(vertical >= directionVerticalLimitNeg && vertical <= directionVerticalLimitPos)
+        {
+            result = "C";
+        }
+        if(vertical < directionVerticalLimitNeg)
+        {
+            result = "N";
+        }
+        if(vertical > directionVerticalLimitPos)
+        {
+            result = "S";
+        }
+        
+        if(orizontal < directionHorizontalLimitNeg)
+        {
+            if(result === "C")
+            { 
+                result = "W";
+            }
+            else
+            {
+                result += "W";
+            }
+        }
+        if(orizontal > directionHorizontalLimitPos)
+        {
+            if(result === "C")
+            { 
+                result = "E";
+            }
+            else
+            {
+                result += "E";
+            }
+        }
+        
+        return result;
     }
 
     /******************************************************
@@ -328,46 +412,6 @@ var JoyStick = (function(container, parameters, callback)
      */
     this.GetDir = function()
     {
-        var result = "";
-        var orizontal = movedX - centerX;
-        var vertical = movedY - centerY;
-        
-        if(vertical >= directionVerticalLimitNeg && vertical <= directionVerticalLimitPos)
-        {
-            result = "C";
-        }
-        if(vertical < directionVerticalLimitNeg)
-        {
-            result = "N";
-        }
-        if(vertical > directionVerticalLimitPos)
-        {
-            result = "S";
-        }
-        
-        if(orizontal < directionHorizontalLimitNeg)
-        {
-            if(result === "C")
-            { 
-                result = "W";
-            }
-            else
-            {
-                result += "W";
-            }
-        }
-        if(orizontal > directionHorizontalLimitPos)
-        {
-            if(result === "C")
-            { 
-                result = "E";
-            }
-            else
-            {
-                result += "E";
-            }
-        }
-        
-        return result;
+        return getCardinalDirection();
     };
 });
