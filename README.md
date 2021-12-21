@@ -1,4 +1,4 @@
-# JoyStick
+# JoyStick 2 - The new version
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8b6ea1475c54ae9896e849e356dfe1d)](https://www.codacy.com/app/bobboteck/JoyStick?utm_source=github.com&utm_medium=referral&utm_content=bobboteck/JoyStick&utm_campaign=badger) ![VanillaJS](https://img.shields.io/badge/Vanilla-JS-yellow "VanillaJS") ![GitHub release (latest by date)](https://img.shields.io/github/v/release/bobboteck/joystick) ![GitHub file size in bytes](https://img.shields.io/github/size/bobboteck/joystick/joy.min.js)
 [![GitHub stars](https://img.shields.io/github/stars/bobboteck/JoyStick)](https://github.com/bobboteck/JoyStick/stargazers) [![GitHub forks](https://img.shields.io/github/forks/bobboteck/JoyStick)](https://github.com/bobboteck/JoyStick/network) ![GitHub All Releases](https://img.shields.io/github/downloads/bobboteck/joystick/total) ![npm](https://img.shields.io/npm/v/html5-joystick) ![npm](https://img.shields.io/npm/dw/html5-joystick)
@@ -9,23 +9,32 @@
 
 A simple **JoyStick** for web application that use HTML5, Canvas and JavaScript.
 You can simply add a JoyStick in your HTML5 page, base configuration is ready for use it.
-The joystick can be used either on touch devices, or on devices that use mouse, touchpads or similar pointing systems.
+The JoyStick can be used either on touch devices, or on devices that use mouse, touchpads or similar pointing systems.
 Developed for Web Remote Control of Robot, the JoyStick can be used for all other scope.
 
-> Note that code not use JQuery but only pure Vanilla JavaScript.
+> **Note:** the code not use JQuery, or other framework, but only pure Vanilla JavaScript.
 
-**Actual release version is 1.1.6**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
+**Actual release version is 2.0.0**. The complete history of project is avaliable in the [Releases page](https://github.com/bobboteck/JoyStick/releases).
 
-Using appropriate methods that the object provides, you can know the position of the Stick is located.
+> **Note:** the new version is fully compatible with the previous ones!
+
+By using the new callback function, **introduced with version 2.0.0 of the library**, you can use the properties of the object, referenced in the callback function, to be able to access the same information that in previous versions of the library, was available only through calls to specific methods.
+The available properties are:
+
+- **xPosition** and **yPosition**: they provide the position of the cursor relative to the Canvas that contains it and to its dimensions. As it happens for the methods: GetPosX and GetPosY
+- **cardinalDirection**: it provide the direction of the cursor as a string that indicates the cardinal points where this is oriented (N, NE, E, SE, S, SW, W, NW and C when it is placed in the center). As it happens for the method: GetDir
+- **x** and **y**: they provide a value between -100 to +100 ***independently*** of size of the Canvas. As it happens for the methods: GetX and GetY
+
+The old methods, the only ones available up to version 1.6.0, can still be used with the new version. Using them you can know the position of the Stick is located.
 The methods available are:
 
-* **GetPosX()** and **GetPosY()**: which return the position of the cursor relative to the Canvas that contains it and to its dimensions
-* **GetDir()**: which returns the direction of the cursor as a string that indicates the cardinal points where this is oriented (N, NE, E, SE, S, SW, W, NW and C when it is placed in the center)
-* **GetX()** and **GetY()**: which return a value between -100 to +100 ***independently*** of size of the Canvas.
+- **GetPosX()** and **GetPosY()**: which return the position of the cursor relative to the Canvas that contains it and to its dimensions
+- **GetDir()**: which returns the direction of the cursor as a string that indicates the cardinal points where this is oriented (N, NE, E, SE, S, SW, W, NW and C when it is placed in the center)
+- **GetX()** and **GetY()**: which return a value between -100 to +100 ***independently*** of size of the Canvas.
 
 ## How to use it
 
-You can simply look the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file for un example of use the library.
+You can simply look the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file for an example of use the library.
 
 First add the JS library in your page, follow the example code to use, if necessary you need to change te path of joy.js file.
 
@@ -48,11 +57,27 @@ var joy = new JoyStick('joyDiv');
 </script>
 ```
 
-Now you can call one of method, explained before, that return status of Stick, for example in the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file every 50 millisecond was called the method **GetX()** and showed the value in a textbox:
+You can call one of method, explained before, that return status of Stick, for example in the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file every 50 millisecond was called the method **GetX()** and showed the value in a textbox:
 
 ```javascript
 setInterval(function(){ x.value=joy.GetX(); }, 50);
 ```
+
+Otherwise you can use the **new callback function**, but you need to initialize the JoyStick differently, as in the example below:
+
+```javascript
+var Joy1 = new JoyStick('joy1Div', {}, function(stickData) {
+    joy1IinputPosX.value = stickData.xPosition;
+    joy1InputPosY.value = stickData.yPosition;
+    joy1Direzione.value = stickData.cardinalDirection;
+    joy1X.value = stickData.x;
+    joy1Y.value = stickData.y;
+});
+```
+
+The third parameter is the callback function, in whose signature, there is the object that exposes the properties of the JoyStick. You can see a complete example in the joy.html file in this repo.
+
+## Example
 
 You can see an example of result in this picture
 
