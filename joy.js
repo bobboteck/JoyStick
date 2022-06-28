@@ -115,6 +115,9 @@ var JoyStick = (function(container, parameters, callback)
     var movedX=centerX;
     var movedY=centerY;
 
+    var lastTouchPositionX = undefined;
+    var lastTouchPositionY = undefined;
+
     // Check if the device support the touch or not
     if("ontouchstart" in document.documentElement)
     {
@@ -186,6 +189,10 @@ var JoyStick = (function(container, parameters, callback)
         {
             movedX = event.targetTouches[0].pageX;
             movedY = event.targetTouches[0].pageY;
+
+            lastTouchPositionX = movedX
+            lastTouchPositionY = movedY
+
             // Manage offset
             if(canvas.offsetParent.tagName.toUpperCase() === "BODY")
             {
@@ -215,6 +222,15 @@ var JoyStick = (function(container, parameters, callback)
 
     function onTouchEnd(event) 
     {
+        if (!lastTouchPositionX ||
+            !lastTouchPositionY ||
+            (event.changedTouches.length > 0 &&
+                (event.changedTouches[0].pageX - lastTouchPositionX > 10 ||
+                    event.changedTouches[0].pageY - lastTouchPositionY > 10)))
+            return
+
+        lastTouchPositionX = undefined
+        lastTouchPositionY = undefined
         pressed = 0;
         // If required reset position store variable
         if(autoReturnToCenter)
