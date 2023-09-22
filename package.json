@@ -2,9 +2,10 @@
   "name": "html5-joystick",
   "version": "2.0.0",
   "description": "A simple JoyStick that use HTML5 Canvas and Vanilla JavaScript, for touch and mouse interfaces",
-  "main": "joy.js",
+  "main": "dist/joy.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
