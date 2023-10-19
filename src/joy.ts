@@ -46,14 +46,14 @@
  * SOFTWARE.
  */
 
-interface StickStatus {
+export interface StickStatus {
   xPosition: number;
   yPosition: number;
   x: number;
   y: number;
   cardinalDirection: CardinalDirection;
 }
-type CardinalDirection =
+export type CardinalDirection =
   | "C"
   | "N"
   | "NE"
@@ -96,7 +96,7 @@ interface JoyStickMembers {
   stickStatus: StickStatus;
 }
 
-interface JoyStickParameters extends Partial<JoyStickMembers> {}
+export interface JoyStickParameters extends Partial<JoyStickMembers> {}
 
 const JoyStickDefaultParameters: JoyStickParameters = {
   title: "joystick",
@@ -110,7 +110,7 @@ const JoyStickDefaultParameters: JoyStickParameters = {
   autoReturnToCenter: true,
 };
 
-type JoyStickCallback = (stickStatus: any) => void; // TODO: Define the correct type for stickStatus
+export type JoyStickCallback = (stickStatus: StickStatus) => void;
 
 export class JoyStick {
   private title: string;

@@ -1,11 +1,11 @@
-interface StickStatus {
+export interface StickStatus {
     xPosition: number;
     yPosition: number;
     x: number;
     y: number;
     cardinalDirection: CardinalDirection;
 }
-type CardinalDirection = "C" | "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
+export type CardinalDirection = "C" | "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 interface JoyStickMembers {
     title: string;
     width: number;
@@ -29,9 +29,9 @@ interface JoyStickMembers {
     callback: JoyStickCallback;
     stickStatus: StickStatus;
 }
-interface JoyStickParameters extends Partial<JoyStickMembers> {
+export interface JoyStickParameters extends Partial<JoyStickMembers> {
 }
-type JoyStickCallback = (stickStatus: any) => void;
+export type JoyStickCallback = (stickStatus: StickStatus) => void;
 export declare class JoyStick {
     private title;
     private width;
