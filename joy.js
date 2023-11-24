@@ -175,9 +175,11 @@ var JoyStick = (function(container, parameters, callback)
     /**
      * @desc Events for manage touch
      */
-    function onTouchStart(event) 
+    let touchId = null;
+    function onTouchStart(event)
     {
         pressed = 1;
+        touchId = event.targetTouches[0].identifier;
     }
 
     function onTouchMove(event)
@@ -211,10 +213,12 @@ var JoyStick = (function(container, parameters, callback)
             StickStatus.cardinalDirection = getCardinalDirection();
             callback(StickStatus);
         }
-    } 
+    }
 
-    function onTouchEnd(event) 
+    function onTouchEnd(event)
     {
+        if (event.changedTouches[0].identifier !== touchId) return;
+
         pressed = 0;
         // If required reset position store variable
         if(autoReturnToCenter)
