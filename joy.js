@@ -81,7 +81,8 @@ var JoyStick = (function(container, parameters, callback)
         internalStrokeColor = (typeof parameters.internalStrokeColor === "undefined" ? "#003300" : parameters.internalStrokeColor),
         externalLineWidth = (typeof parameters.externalLineWidth === "undefined" ? 2 : parameters.externalLineWidth),
         externalStrokeColor = (typeof parameters.externalStrokeColor ===  "undefined" ? "#008000" : parameters.externalStrokeColor),
-        autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined" ? true : parameters.autoReturnToCenter);
+        autoReturnToCenter = (typeof parameters.autoReturnToCenter === "undefined" ? true : parameters.autoReturnToCenter),
+        limitToCircle = (typeof parameters.limitToCircle === "undefined" ? false : parameters.limitToCircle);
 
     callback = callback || function(StickStatus) {};
 
@@ -154,10 +155,18 @@ var JoyStick = (function(container, parameters, callback)
     function drawInternal()
     {
         context.beginPath();
-        if(movedX<internalRadius) { movedX=maxMoveStick; }
-        if((movedX+internalRadius) > canvas.width) { movedX = canvas.width-(maxMoveStick); }
-        if(movedY<internalRadius) { movedY=maxMoveStick; }
-        if((movedY+internalRadius) > canvas.height) { movedY = canvas.height-(maxMoveStick); }
+        if (limitToCircle) {
+            var scalingFactor = Math.sqrt(Math.pow(internalRadius, 2) / (Math.pow(movedX - centerX, 2) + Math.pow(movedY - centerY, 2)));
+            if (scalingFactor < 1) {
+                movedX = centerX + (movedX - centerX) * scalingFactor;
+                movedY = centerY + (movedY - centerY) * scalingFactor;
+            }
+        } else {
+            if(movedX<internalRadius) { movedX=maxMoveStick; }
+            if((movedX+internalRadius) > canvas.width) { movedX = canvas.width-(maxMoveStick); }
+            if(movedY<internalRadius) { movedY=maxMoveStick; }
+            if((movedY+internalRadius) > canvas.height) { movedY = canvas.height-(maxMoveStick); }
+        }
         context.arc(movedX, movedY, internalRadius, 0, circumference, false);
         // create radial gradient
         var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
