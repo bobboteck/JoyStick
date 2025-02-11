@@ -1,48 +1,5 @@
 /*
- * Name          : joy.js
- * @author       : Roberto D'Amico (Bobboteck)
- * Last modified : 09.06.2020
- * Revision      : 1.1.6
- *
- * Modification History:
- * Date         Version     Modified By     Description
- * 2021-12-21   2.0.0       Roberto D'Amico New version of the project that integrates the callback functions, while 
- *                                          maintaining compatibility with previous versions. Fixed Issue #27 too, 
- *                                          thanks to @artisticfox8 for the suggestion.
- * 2020-06-09   1.1.6       Roberto D'Amico Fixed Issue #10 and #11
- * 2020-04-20   1.1.5       Roberto D'Amico Correct: Two sticks in a row, thanks to @liamw9534 for the suggestion
- * 2020-04-03               Roberto D'Amico Correct: InternalRadius when change the size of canvas, thanks to 
- *                                          @vanslipon for the suggestion
- * 2020-01-07   1.1.4       Roberto D'Amico Close #6 by implementing a new parameter to set the functionality of 
- *                                          auto-return to 0 position
- * 2019-11-18   1.1.3       Roberto D'Amico Close #5 correct indication of East direction
- * 2019-11-12   1.1.2       Roberto D'Amico Removed Fix #4 incorrectly introduced and restored operation with touch 
- *                                          devices
- * 2019-11-12   1.1.1       Roberto D'Amico Fixed Issue #4 - Now JoyStick work in any position in the page, not only 
- *                                          at 0,0
- * 
- * The MIT License (MIT)
- *
- *  This file is part of the JoyStick Project (https://github.com/bobboteck/JoyStick).
- *	Copyright (c) 2015 Roberto D'Amico (Bobboteck).
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * @author Roberto D'Amico (Bobboteck) https://github.com/bobboteck/JoyStick/blob/master/joy.js
  */
 
 let StickStatus =
@@ -115,19 +72,14 @@ var JoyStick = (function(container, parameters, callback)
     var movedX=centerX;
     var movedY=centerY;
 
-    // Check if the device support the touch or not
-    if("ontouchstart" in document.documentElement)
-    {
-        canvas.addEventListener("touchstart", onTouchStart, false);
-        document.addEventListener("touchmove", onTouchMove, false);
-        document.addEventListener("touchend", onTouchEnd, false);
-    }
-    else
-    {
-        canvas.addEventListener("mousedown", onMouseDown, false);
-        document.addEventListener("mousemove", onMouseMove, false);
-        document.addEventListener("mouseup", onMouseUp, false);
-    }
+    canvas.addEventListener("touchstart", onTouchStart, false);
+    document.addEventListener("touchmove", onTouchMove, false);
+    document.addEventListener("touchend", onTouchEnd, false);
+
+    canvas.addEventListener("mousedown", onMouseDown, false);
+    document.addEventListener("mousemove", onMouseMove, false);
+    document.addEventListener("mouseup", onMouseUp, false);
+
     // Draw the object
     drawExternal();
     drawInternal();
