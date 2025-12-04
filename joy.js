@@ -76,6 +76,7 @@ var JoyStick = (function(container, parameters, callback)
     var title = (typeof parameters.title === "undefined" ? "joystick" : parameters.title),
         width = (typeof parameters.width === "undefined" ? 0 : parameters.width),
         height = (typeof parameters.height === "undefined" ? 0 : parameters.height),
+        image = parameters.image,
         internalFillColor = (typeof parameters.internalFillColor === "undefined" ? "#00AA00" : parameters.internalFillColor),
         internalLineWidth = (typeof parameters.internalLineWidth === "undefined" ? 2 : parameters.internalLineWidth),
         internalStrokeColor = (typeof parameters.internalStrokeColor === "undefined" ? "#003300" : parameters.internalStrokeColor),
@@ -153,23 +154,32 @@ var JoyStick = (function(container, parameters, callback)
      */
     function drawInternal()
     {
-        context.beginPath();
         if(movedX<internalRadius) { movedX=maxMoveStick; }
         if((movedX+internalRadius) > canvas.width) { movedX = canvas.width-(maxMoveStick); }
         if(movedY<internalRadius) { movedY=maxMoveStick; }
         if((movedY+internalRadius) > canvas.height) { movedY = canvas.height-(maxMoveStick); }
-        context.arc(movedX, movedY, internalRadius, 0, circumference, false);
-        // create radial gradient
-        var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
-        // Light color
-        grd.addColorStop(0, internalFillColor);
-        // Dark color
-        grd.addColorStop(1, internalStrokeColor);
-        context.fillStyle = grd;
-        context.fill();
-        context.lineWidth = internalLineWidth;
-        context.strokeStyle = internalStrokeColor;
-        context.stroke();
+
+        if (typeof image === "undefined")
+        {
+            context.beginPath();
+            context.arc(movedX, movedY, internalRadius, 0, circumference, false);
+            // create radial gradient
+            var grd = context.createRadialGradient(centerX, centerY, 5, centerX, centerY, 200);
+            // Light color
+            grd.addColorStop(0, internalFillColor);
+            // Dark color
+            grd.addColorStop(1, internalStrokeColor);
+            context.fillStyle = grd;
+            context.fill();
+            context.lineWidth = internalLineWidth;
+            context.strokeStyle = internalStrokeColor;
+            context.stroke();
+        }
+        else
+        {
+            const image_data = document.getElementById(image);
+            context.drawImage(image_data, movedX - image_data.naturalWidth / 2, movedY - image_data.naturalHeight / 2, image_data.naturalWidth, image_data.naturalHeight);
+        }
     }
 
     /**
