@@ -9,7 +9,7 @@
 
 A simple **JoyStick** for web application that use HTML5, Canvas and JavaScript.
 You can simply add a JoyStick in your HTML5 page, base configuration is ready for use it.
-The JoyStick can be used either on touch devices, or on devices that use mouse, touchpads or similar pointing systems.
+The JoyStick can be used either on touch devices, or on devices that use a mouse, touchpad or similar pointing systems.
 Developed for Web Remote Control of Robot, the JoyStick can be used for all other scope.
 
 > **Note:** the code not use JQuery, or other framework, but only pure Vanilla JavaScript.
@@ -90,24 +90,30 @@ But if you want see the JoyStick in action go to this [link](http://bobboteck.gi
 All configuration parameters are optional, must be passed in JSON format, therefore it is sufficient to indicate only the parameters for which you want to provide a configuration other than the Default value.
 
 * **title {String} (optional)** - The ID of canvas (Default value is 'joystick')
-* **width {Int} (optional)** - The width of canvas, if not specified is setted at width of container object (Default value is the width of container object)
-* **height {Int} (optional)** - The height of canvas, if not specified is setted at height of container object (Default value is the height of container object)
+* **width {Int} (optional)** - The width of canvas, if not specified is set to width of container object (Default value is the width of container object)
+* **height {Int} (optional)** - The height of canvas, if not specified is set to width of container object (Default value is the height of container object)
 * **internalFillColor {String} (optional)** - Internal color of Stick (Default value is '#00AA00')
 * **internalLineWidth {Int} (optional)** - Border width of Stick (Default value is 2)
 * **internalStrokeColor {String}(optional)** - Border color of Stick (Default value is '#003300')
-* **externalLineWidth {Int} (optional)** - External reference circonference width (Default value is 2)
-* **externalStrokeColor {String} (optional)** - External reference circonference color (Default value is '#008000')
+* **internalDrawArrows  {Bool}   (optional)** - Draws X and Y arrows on the centre of the Stick (if axisOnlyX=true only X arrow is draw, if axisOnlyY=true only Y is arrow draw)
+* **externalLineWidth {Int} (optional)** - External reference circumference width (Default value is 2)
+* **externalStrokeColor {String} (optional)** - External reference circumference color (Default value is '#008000')
 * **autoReturnToCenter {Bool} (optional)** - Sets the behavior of the stick, whether or not, it should return to zero position when released (Default value is True and return to zero)
+*  **axisOnlyX {Bool} (optional)** - Stick only moves in the X direction, y is set to 0 (ignored if both axisOnlyX and axisOnlyY are set to true)
+* **axisOnlyY {Bool} (optional)** - Stick only moves in the Y direction, x is set to 0 (ignored if both axisOnlyX and axisOnlyY are set to true)
 
 ## Tips & Tricks
 
-The ***title*** parameter, that have as default value 'joystick', is used to set the ID of Canvas elemente that contains the JoyStick, you can use this to define custom CSS style for the canvas. For example in the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file the CSS style is used to set the border of Canvas with this row of code:
+The ***title*** parameter, that have as default value 'joystick', is used to set the ID of Canvas element that contains the JoyStick, you can use this to define custom CSS style for the canvas. For example in the ***[joy.html](http://bobboteck.github.io/joy/joy.html)*** file the CSS style is used to set the border of Canvas with this row of code:
 
 ```css
 #joystick {
  border: 1px solid #9C9898;
 }
 ```
+The ***axisOnlyX*** and ***axisOnlyY*** parameters can be used to make the stick only move in the X or Y directions.  If using either of these, it is also useful to use the ***internalDrawArrows*** parameter as this will draw an arrow on the stick showing the direction of the allowed (X or Y) movement.  See example ***[joy-axis.html](https://kenloveday.github.io/JoyStick/joy-axis.html)***.
+
+[<img width="780" height="167" alt="joystick-axis" src="https://github.com/user-attachments/assets/91f95516-ed13-4e1a-95b2-1cd71ee8ddb4" />](https://kenloveday.github.io/JoyStick/joy-axis.html)
 
 ## Share your experience
 

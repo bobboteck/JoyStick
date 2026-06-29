@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <title>JoyStick Axis</title>
+   <script src="joy.js"></script>
+
+   <style>
+      .parent {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         grid-template-rows: 0fr repeat(2, 1fr);
+         grid-column-gap: 0px;
+         grid-row-gap: 0px;
+      }
+
+      .div1 { grid-area: 2 / 1 / 3 / 2; }
+      .div2 { grid-area: 2 / 2 / 3 / 3; }
+      .div3 { grid-area: 3 / 1 / 4 / 2; }
+      .div4 { grid-area: 3 / 2 / 4 / 3; }
+
+      .joystick-size {
+         width:250px;
+         height:250px;
+      }
+   </style>
+</head>
+
+<body style="font-family:'verdana'">
+   <h3>JoyStick XY Axis Options</h3>
+
+   <div class="parent">
+      <div class="div1">
+         <div>Parameters:<br>{'<b>internalDrawArrows</b>': true, '<b>axisOnlyX</b>': true}</div>
+         <div id="joystick1_XY"></div>
+         <div class="joystick-size" id="joystick1"></div>
+      </div>
+      <div class="div2">
+         <div>Parameters:<br>{'<b>internalDrawArrows</b>': true, '<b>axisOnlyY</b>': true}</div>
+         <div id="joystick2_XY"></div>
+         <div class="joystick-size" id="joystick2"></div>
+      </div>
+      <div class="div3">
+         <div>Parameters:<br>{'<b>internalDrawArrows</b>': true}</div>
+         <div id="joystick3_XY"></div>
+         <div class="joystick-size" id="joystick3"></div>
+      </div>
+      <div class="div4">
+         <div>Parameters:<br>{}</div>
+         <div id="joystick4_XY"></div>
+         <div class="joystick-size" id="joystick4"></div>
+      </div>
+   </div>
+
+   <script>
+      var joystick1_options = {'internalDrawArrows': true, 'axisOnlyX': true}
+      var joystick1 = new JoyStick('joystick1', joystick1_options, joystick1_Func);
+      
+      var joystick2_options = {'internalDrawArrows': true, 'axisOnlyY': true}
+      var joystick2 = new JoyStick('joystick2', joystick2_options, joystick2_Func);
+
+      var joystick3_options = {'internalDrawArrows': true}
+      var joystick3 = new JoyStick('joystick3', joystick3_options, joystick3_Func);
+
+      var joystick4_options = {}
+      var joystick4 = new JoyStick('joystick4', joystick4_options, joystick4_Func);
+
+      function joystick1_Func(stickData){
+         var posXY = 'X,Y = ' + stickData.x + ',' + stickData.y;
+         document.getElementById("joystick1_XY").innerHTML = posXY;
+      }
+      function joystick2_Func(stickData){
+         var posXY = 'X,Y = ' + stickData.x + ',' + stickData.y;
+         document.getElementById("joystick2_XY").innerHTML = posXY;
+      }
+      function joystick3_Func(stickData){
+         var posXY = 'X,Y = ' + stickData.x + ',' + stickData.y;
+         document.getElementById("joystick3_XY").innerHTML = posXY;
+      }
+      function joystick4_Func(stickData){
+         var posXY = 'X,Y = ' + stickData.x + ',' + stickData.y;
+         document.getElementById("joystick4_XY").innerHTML = posXY;         
+      }
+
+      joystick1_Func({x:0,y:0});
+      joystick2_Func({x:0,y:0});
+      joystick3_Func({x:0,y:0});
+      joystick4_Func({x:0,y:0});      
+   </script>
+
+</body>
+</html>
